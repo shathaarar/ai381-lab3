@@ -20,7 +20,7 @@ PRED="$(curl -fsS -X POST "$BASE_URL/predict" -H 'Content-Type: application/json
 echo "predict: $PRED"
 
 # the prediction must be a probability between 0 and 1, and the service must say which model it is
-python3 - "$PRED" "$(cat /tmp/health.json)" <<'PY'
+python - "$PRED" "$(cat /tmp/health.json)" <<'PY'
 import json, sys
 pred, health = json.loads(sys.argv[1]), json.loads(sys.argv[2])
 p = pred["churn_probability"]
